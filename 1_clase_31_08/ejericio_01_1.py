@@ -69,7 +69,7 @@ for i in range(len(lista_tecnologias)):
             if (edad >= 25 and edad <=50):
                 contador_masculino_IOT_IA += 1
 
-#print(f"cantidad de empleados que cumplen el crtiterio: {contador_masculino_IOT_IA}")
+print(f"cantidad de empleados que cumplen el crtiterio: {contador_masculino_IOT_IA}")
 
 
 
@@ -88,7 +88,7 @@ for i in range(len(lista_tecnologias)):
         contador_ia += 1
 
 porcentaje = (contador_ia * 100) / len(lista_tecnologias)
-#print(f"El porcentaje de empleados es {porcentaje:0.2f}%")
+print(f"El porcentaje de empleados es {porcentaje:0.2f}%")
 
 
 #3) - Nombre y tecnología que votó, de los empleados de género masculino con mayor edad.
@@ -104,7 +104,7 @@ for i in range(len(lista_tecnologias)):
             maxima_edad = edad
             bandera = True
 
-#print(maxima_edad)
+print(f'Maxima edad --> {maxima_edad}')
 
 for i in range(len(lista_tecnologias)):
     nombre = lista_nombres[i]
@@ -113,4 +113,4 @@ for i in range(len(lista_tecnologias)):
     tecnologia = lista_tecnologias[i]
     if genero == 'Masculino' and edad == maxima_edad:
         pass
-        #print(f"\t{nombre:15}{tecnologia}")
+        print(f"{nombre:15}{tecnologia}")
