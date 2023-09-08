@@ -1,6 +1,7 @@
 from os import system
 system('cls')
 ###GITHUB
+##GITHUB PARTE ME QUIERO IR A DORMIR
 from data_stark import *
 
 while True:
