@@ -2,7 +2,7 @@ from os import system
 system('cls')
 
 
-from data_stark import *
+from integradores.integrador2.data_stark import *
 
 while True:
     respuesta = int(input("1.Imprimir datos superheroes\n2.Identidad y peso del superheroe con mayor fuerza\n3. Nombre e identidad del superheroe mas bajo\n4.Peso promedio de los superheroes masculinos\n5.Superheroes que superen el promedio de fuerza femenino\n6.Salir\nElija una opcion:"))
