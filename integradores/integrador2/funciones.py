@@ -3,7 +3,6 @@
 from os import system
 system('cls')
 
-
 from data_stark import lista_personajes
 
 #0
@@ -22,7 +21,6 @@ def stark_normalizar_datos(lista:list):
             bandera_datos_normalizados = True
 
     return bandera_datos_normalizados
-
 
 #1.1
 def obtener_dato(heroe:dict, clave:str):
@@ -48,7 +46,6 @@ def obtener_nombre_y_dato(heroe:dict, clave:str):
         return f"Nombre: {heroe['nombre']} | {clave}: {heroe[clave]}"
     else:
         return bandera_obtener_nombre
-    
 
 #3.1
 def obtener_maximo(lista:list, clave:str):
@@ -137,7 +134,18 @@ def mostrar_promedio_dato(lista:list, clave:str):
 
 
 def imprimir_menu():
-    menu_opciones = ['1.Normalizar datos', '2.otra opcion', '3.otra opcion', '4.otra opcion', '5.salir']
+    menu_opciones = ['1.Normalizar datos', 
+                    '2.Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género NB', 
+                    '3.Recorrer la lista y determinar cuál es el superhéroe más alto de género F', 
+                    '4.Recorrer la lista y determinar cuál es el superhéroe más alto de género M',
+                    '5.Recorrer la lista y determinar cuál es el superhéroe más débil de género M ',
+                    '6.Recorrer la lista y determinar cuál es el superhéroe más débil de género NB',
+                    '7.Recorrer la lista y determinar la fuerza promedio de los  superhéroes de género NB',
+                    '8.Determinar cuántos superhéroes tienen cada tipo de color de ojos.',
+                    '9.Determinar cuántos superhéroes tienen cada tipo de color de pelo.',
+                    '10.Listar todos los superhéroes agrupados por color de ojos.',
+                    '11.Listar todos los superhéroes agrupados por tipo de inteligencia'
+                    '12.salir']
     for opcion in menu_opciones:
         print(opcion)
 
@@ -158,21 +166,80 @@ def stark_menu_principal():
         return int(opcion)
     else:
         return False
-    
 
-'''
-6.Crear la función 'stark_marvel_app' la cual recibirá por parámetro la lista de héroes y se encargará de la ejecución principal de nuestro programa. 
-Utilizar if/elif o match según prefiera. Debe informar por consola en caso de seleccionar una opción incorrecta y volver a pedir el dato al usuario. Reutilizar las funciones con prefijo 'stark_' donde crea correspondiente.
-'''
+
+#################FUNCIONES PARA EL MENU#########################
+
+
+##pensar con paramtetros opcionales el genero, default en todo, y si se especifica el genero que calcule en base a eso
+#Recorrer la lista y determinar cuál es el superhéroe más alto de género F/M
+def encontrar_maximo_clave_genero(lista:list, clave:str, genero:str):
+    bandera_primero = True
+    for heroe in lista:
+        if heroe['genero'] == genero:
+            if bandera_primero == True or heroe[clave] > maximo:
+                maximo = heroe[clave]
+                bandera_primero = False
+    print(maximo)
+
+#Recorrer la lista y determinar cuál es el superhéroe más débil de género M/NB
+def encontrar_minimo_clave_genero(lista:list, clave:str, genero:str):
+    bandera_primero = True
+    for heroe in lista:
+        if heroe['genero'] == genero:
+            if bandera_primero == True or heroe[clave] < minimo:
+                minimo = heroe[clave]
+                bandera_primero = False
+    print(minimo)
+
+#Recorrer la lista y determinar la fuerza promedio de los  superhéroes de género NB
+def calcular_promedio_clave_genero(lista:list, clave:str, genero:str):
+    contador_genero = 0
+    acumulador = 0
+    for heroe in lista:
+        if heroe['genero'] == genero:
+            acumulador += heroe[clave]
+            contador_genero += 1
+    promedio = acumulador/contador_genero
+    print(promedio)
+
+#Determinar cuántos superhéroes tienen cada tipo de color de ojos/color de pelo.
+def setear_lista_clave(lista:list, clave:str):
+    lista_tipos = []
+    for heroe in lista:
+        if clave in heroe:
+            lista_tipos.append(heroe[clave])
+    lista_tipos = set(lista_tipos)
+    return lista_tipos
+
+def contar_superheroes_por_categoria(lista:list,clave:str):
+    lista_tipos = setear_lista_clave(lista,clave)
+    for tipo in lista_tipos:
+        contador = 0
+        for heroe in lista:
+            if heroe[clave] == tipo:
+                contador += 1
+        print(f'{tipo}: {contador}')
+
+#Listar todos los superhéroes agrupados por color de ojos7inteligencia.
+def listar_superheroes_por_categoria(lista:list,clave:str):
+    lista_tipos = setear_lista_clave(lista, clave)
+    for tipo in lista_tipos:
+        print(tipo)
+        for heroe in lista:
+            if heroe[clave] == tipo:
+                print(f"\t {heroe['nombre']}")
+
 
 def stark_marvel_app(lista:list):
+
     bandera_opciones = False
     while True:
         opcion = stark_menu_principal()
 
         match opcion:
             case 1:
-                datos_normalizados = stark_normalizar_datos(lista_personajes)
+                datos_normalizados = stark_normalizar_datos(lista)
                 if datos_normalizados:
                     print('datos normalizados')
                     bandera_opciones = True
@@ -187,39 +254,51 @@ def stark_marvel_app(lista:list):
                     print('debe normalizar los datos primero, elija la opcion uno')
             case 3:
                 if bandera_opciones:
-                    pass
+                    encontrar_maximo_clave_genero(lista,'altura', 'F')
                 else:
                     print('debe normalizar los datos primero, elija la opcion uno')
             case 4:
                 if bandera_opciones:
-                    pass
+                    encontrar_maximo_clave_genero(lista,'altura', 'M')
                 else:
                     print('debe normalizar los datos primero, elija la opcion uno')
             case 5:
                 if bandera_opciones:
+                    encontrar_minimo_clave_genero(lista, 'fuerza', 'M')
                     pass
                 else:
                     print('debe normalizar los datos primero, elija la opcion uno')
             case 6:
                 if bandera_opciones:
-                    pass
+                    encontrar_minimo_clave_genero(lista, 'fuerza', 'NB')
                 else:
                     print('debe normalizar los datos primero, elija la opcion uno')
             case 7:
                 if bandera_opciones:
-                    pass
+                    calcular_promedio_clave_genero(lista, 'fuerza', 'NB')
                 else:
                     print('debe normalizar los datos primero, elija la opcion uno')
             case 8:
                 if bandera_opciones:
-                    pass
+                    contar_superheroes_por_categoria(lista_personajes, 'color_ojos')
                 else:
                     print('debe normalizar los datos primero, elija la opcion uno')
             case 9:
                 if bandera_opciones:
-                    pass
+                    contar_superheroes_por_categoria(lista_personajes, 'color_pelo')
                 else:
                     print('debe normalizar los datos primero, elija la opcion uno')
             case 10:
+                if bandera_opciones:
+                    listar_superheroes_por_categoria(lista, 'color_ojos')
+                else:
+                    print('debe normalizar los datos primero, elija la opcion uno')
+            case 11:
+                if bandera_opciones:
+                    listar_superheroes_por_categoria(lista, 'inteligencia')
+                else:
+                    print('debe normalizar los datos primero, elija la opcion uno')
+            case 12:
                 break
+
 
