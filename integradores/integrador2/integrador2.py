@@ -3,9 +3,6 @@
 from os import system
 system('cls')
 
-
-
-
 from data_stark import * 
 from funciones import *
 
