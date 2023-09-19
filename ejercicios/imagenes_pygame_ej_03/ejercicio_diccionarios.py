@@ -5,17 +5,17 @@ lista_mascotas = [
                 {
                 'nombre': 'pig', 
                 'edad': 7, 
-                'imagen': '4_clase_08_09\pig.jpg'
+                'imagen': 'ejercicios\imagenes_pygame_ej_03\pig.jpg'
                 },
                 {
                 'nombre':'perro',
                 'edad':3,
-                'imagen': '4_clase_08_09\perro.jpg'
+                'imagen': 'ejercicios\imagenes_pygame_ej_03\perro.jpg'
                 },
                 {
                 'nombre': 'gatito',
                 'edad':1,
-                'imagen': '4_clase_08_09\gatito.png'
+                'imagen': 'ejercicios\imagenes_pygame_ej_03\gatito.png'
                 }]
 
 
