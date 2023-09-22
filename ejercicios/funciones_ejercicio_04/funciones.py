@@ -64,3 +64,5 @@ def encontrar_maximo(primer_numero:int, segundo_numero:int, tercer_numero:int):
 
     else:
         return False
+
+#Ejercicio 05: Escribe una función que tome una cadena como entrada y devuelva la cadena invertida.

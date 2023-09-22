@@ -21,7 +21,7 @@ alto = 500
 PANTALLA = pygame.display.set_mode((ancho,alto))
 pygame.display.set_caption('figuritas :p')
 
-fondo = pygame.image.load("ejercicios/figuras_ejercicio/matematicas.jpg")  
+fondo = pygame.image.load("ejercicios/figuras_ejercicio_05/matematicas.jpg")  
 fondo = pygame.transform.scale(fondo, (ancho, alto))
 
 

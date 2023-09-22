@@ -289,3 +289,6 @@ lista_personajes =\
     "inteligencia": "high"
   }
 ]
+
+#print(lista_personajes[0]['nombre'])
+#print(lista_personajes[0].keys())

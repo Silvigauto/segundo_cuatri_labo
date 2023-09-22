@@ -14,6 +14,6 @@ while True:
     
     PANTALLA.blit(fondo, (0, 0))
 
-    dibujar_y_mostrar_resultado_figura(figura_rectangulo)
+    dibujar_y_mostrar_resultado_figura(figura_circulo)
     
     pygame.display.update()

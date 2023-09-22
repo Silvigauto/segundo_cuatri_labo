@@ -1,17 +1,12 @@
 #Silvina Gauto - 1B - Integrador 2 
 
-from os import system
-system('cls')
-
-#from data_stark import lista_personajes
-
 #0
-def stark_normalizar_datos(lista:list):
+def stark_normalizar_datos(lista:list)->bool:
     '''
-    parameters: recibe la lista de heroes
-    brief: normaliza los datos numericos en la lista de heroes
-    return: retorna false si ya se ha normalizado los datos o si no se pudo realizar
-            retorna true si al menos un dato fue normalizado
+    parameters: recibe la lista de héroes
+    brief: normaliza los datos numéricos en la lista de héroes
+    return: retorna False si ya se han normalizado los datos o si no se pudo realizar
+            retorna True si al menos un dato fue normalizado
     '''
     bandera_datos_normalizados = False
     for heroe in lista:
@@ -29,27 +24,29 @@ def stark_normalizar_datos(lista:list):
     return bandera_datos_normalizados
 
 #1.1
-def obtener_dato(heroe:dict, clave:str):
+def obtener_dato(heroe:dict, clave:str)->bool:
     '''
     parameters: recibe un diccionario y una clave de este
-    brief: valida si el diccionario esta vacio y si la clave existe en el diccionario
-    return: retorna True si no es un diccionario vacio Y si la clave existe en este
+    brief: valida si el diccionario está vacio y si la clave existe en el diccionario
+    return: retorna True si no es un diccionario vacío y si la clave existe en este
             retorna False en caso contrario
     '''
     bandera_obtener_dato = False
     if len(heroe) > 0:
+        #if 'nombre' in heroe
         if clave in heroe:
             bandera_obtener_dato = True
     
     return bandera_obtener_dato
 
+
 #1.2
-def obtener_nombre(heroe:dict):
+def obtener_nombre(heroe:dict)->str:
     '''
-    parameters: recibe un diccionario que representar al heroe
-    brief: en base a la funcion 'obtener_dato' (para validar si el diccionario no esta vacio) y si existe la clave 'nombre'
-        formatea el nombre del heroe
-    return: retorna el nombre del heroe si paso las validaciones
+    parameters: recibe un diccionario que representa al héroe
+    brief: en base a la función 'obtener_dato' (para validar si el diccionario no está vacio) y si existe la clave 'nombre'
+        formatea el nombre del héroe
+    return: retorna el nombre del héroe si pasó las validaciones
             retorna False en caso contrario
     '''
     bandera_obtener_nombre = obtener_dato(heroe, 'hola')
@@ -58,12 +55,13 @@ def obtener_nombre(heroe:dict):
     else:
         return bandera_obtener_nombre
 
+
 #2
-def obtener_nombre_y_dato(heroe:dict, clave:str):
+def obtener_nombre_y_dato(heroe:dict, clave:str)->str:
     '''
-    parameters: recibe un diccionario que representa el heroe y su clave
+    parameters: recibe un diccionario que representa el héroe y su clave
     brief: en base a 'obtener_dato' (valida si el diccionario no esta vacio y si existe la clave) formatea el string con el nombre y la clave pasada
-        por parametro
+        por parámetro
     return: retorna el string formateado
             retorna False en caso de no pasar las validaciones
     '''
@@ -74,11 +72,12 @@ def obtener_nombre_y_dato(heroe:dict, clave:str):
         return bandera_obtener_nombre
 
 #3.1
-def obtener_maximo(lista:list, clave:str):
+def obtener_maximo(lista:list, clave:str)->float:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe la lista de héroes y una clave del diccionario
+    brief: recorre la lista y obtiene el numero máximo de la clave pasada por parámetro
+    return: retorna el máximo dato 
+            retorna False si la clave pasada no es de tipo numérico
     '''
     bandera_primero = True
     for heroe in lista:
@@ -92,11 +91,12 @@ def obtener_maximo(lista:list, clave:str):
     return maximo_dato
 
 #3.2
-def obtener_minimo(lista:list, clave:str):
+def obtener_minimo(lista:list, clave:str)->float:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe la lista de héroes y una clave del diccionario   
+    brief: recorre la lista y obtiene el número mínimo de la clave pasada por parámetro
+    return: retorna el mínimo dato  
+            retorna False si la clave pasada no es de tipo numérico
     '''
     bandera_primero = True
     for heroe in lista:
@@ -110,11 +110,11 @@ def obtener_minimo(lista:list, clave:str):
     return minimo_dato
 
 #3.3 obtener el numero de afuera ?
-def obtener_dato_cantidad(lista:list, numero:int, clave:str):
+def obtener_dato_cantidad(lista:list, numero:int, clave:str)->list:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe la lista de héroes, el número máximo o mínimo a encontrar, recibe la clave del héroe
+    brief: recorre la lista de héroes y agrega a una lista los diccionarios que coincidan con el máximo o el mínimo
+    return: retorna la lista de coincidencias
     '''
     lista_coincidencias = []
     for heroe in lista:
@@ -123,11 +123,11 @@ def obtener_dato_cantidad(lista:list, numero:int, clave:str):
     return lista_coincidencias
 
 #3.4 obtengo los datos de afuera para imprimir?
-def stark_imprimir_heroes(lista):
+def stark_imprimir_heroes(lista)->bool:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe la lista de héroes   
+    brief: recorre la lista (si no está vacía) e imprime todos los héroes
+    return: retorna False si la lista está vacía
     '''
     if len(lista) > 0:
         for heroe in lista:
@@ -137,11 +137,11 @@ def stark_imprimir_heroes(lista):
 
 
 #4.1
-def sumar_dato_heroe(lista:list, clave:str):
+def sumar_dato_heroe(lista:list, clave:str)->float:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe la lista de héroes y la clave a sumar
+    brief: recorre la lista de héroes y suma todos los datos de la clave pasada por parámetro
+    return: retorna el acumulador final
     '''
     acumulador_clave = 0
     for heroe in lista:
@@ -151,11 +151,12 @@ def sumar_dato_heroe(lista:list, clave:str):
     return acumulador_clave
 
 #4.2
-def dividir(dividendo: float, divisor:int):
+def dividir(dividendo: float, divisor:int)->float:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe el número a divivir y el divisor
+    brief: realiza la división de los números pasados por parámetro
+    return: retorna el resultado de la división
+            retorna False en caso que el divisor sea 0
     '''
     if divisor != 0:
         resultado = dividendo/divisor
@@ -165,11 +166,12 @@ def dividir(dividendo: float, divisor:int):
     
 
 #4.3
-def calcular_promedio(lista:list, clave:str):
+def calcular_promedio(lista:list, clave:str)->float:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe la lista de héroes y la clave sobre la que se va a calcular el promedio
+    brief: toma el acumulador de la función 'sumar_dato_heroe' y el largo de la lista como divisor y dividendo
+            de la función 'dividir'
+    return: retorna el promedio
     '''
     total_dato = sumar_dato_heroe(lista, clave)
     promedio = dividir(total_dato, len(lista))
@@ -182,6 +184,20 @@ Se debe validar que la lista a manipular no esté vacía , en caso de que esté 
 '''
 
 #4.4 --> falta validacion del tipo dato int o float
+def mostrar_promedio_dato1(lista:list, clave:str):
+    '''
+    parameters: 
+    brief: 
+    return: 
+    '''
+    if len(lista) > 0:
+        for heroe in lista:
+            if type(heroe[clave]) == int or type(heroe[clave]) == float:
+                pass
+            else:
+                return False
+    else:
+        return False
 
 def mostrar_promedio_dato(lista:list, clave:str):
     '''
@@ -198,34 +214,36 @@ def mostrar_promedio_dato(lista:list, clave:str):
     else:
         return False
 
+#pasar el menu por parámetro????
 
-def imprimir_menu():
+def imprimir_menu()->None:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: no recibe parámetros
+    brief: recorre el menu_opciones e imprime cada opción
+    return: no retorna nada
     '''
-    menu_opciones = ['1.Normalizar datos', 
-                    '2.Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género NB', 
-                    '3.Recorrer la lista y determinar cuál es el superhéroe más alto de género F', 
-                    '4.Recorrer la lista y determinar cuál es el superhéroe más alto de género M',
-                    '5.Recorrer la lista y determinar cuál es el superhéroe más débil de género M ',
-                    '6.Recorrer la lista y determinar cuál es el superhéroe más débil de género NB',
-                    '7.Recorrer la lista y determinar la fuerza promedio de los  superhéroes de género NB',
-                    '8.Determinar cuántos superhéroes tienen cada tipo de color de ojos.',
-                    '9.Determinar cuántos superhéroes tienen cada tipo de color de pelo.',
-                    '10.Listar todos los superhéroes agrupados por color de ojos.',
-                    '11.Listar todos los superhéroes agrupados por tipo de inteligencia'
+    menu_opciones = ['\n1.Normalizar datos', 
+                    '2.imprimir el nombre de cada superhéroe NB', 
+                    '3.héroe más alto F', 
+                    '4.héroe más alto M',
+                    '5.héroe más débil M ',
+                    '6.héroe más débil NB',
+                    '7.fuerza promedio héroes NB',
+                    '8.cuántos héroes tienen cada tipo de color de ojos.',
+                    '9.cuántos héroes tienen cada tipo de color de pelo.',
+                    '10.Listar héroes agrupados por color de ojos.',
+                    '11.Listar héroes agrupados por tipo de inteligencia',
                     '12.salir']
     for opcion in menu_opciones:
         print(opcion)
 
 #5.2
-def validar_entero(numero:str):
+def validar_entero(numero:str)->bool:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe un número en formato string
+    brief: verifica que el string pasado por parámetro contenga solo números
+    return: retorna True en caso que el string sea númerico
+            retorna False en caso de que el string no sea enteramente numérico
     '''
     if numero.isdigit():
         return True
@@ -233,14 +251,16 @@ def validar_entero(numero:str):
         return False
 
 #5.3
-def stark_menu_principal():
+def stark_menu_principal()->int:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: no recibe parámetros
+    brief: usa la función 'imprimir_menu', pide una opción al usuario y usa la función 'validar_entero' para verificar
+            la opción ingresada
+    return: retorna la opción convertida a entero
+            retorna False en caso que la opción no fue validada
     '''
     imprimir_menu()
-    opcion = input('Ingrese una opcion')
+    opcion = input(f'\n\nIngrese una opcion')
     opcion_usuario = validar_entero(opcion)
 
     if opcion_usuario:
@@ -251,60 +271,25 @@ def stark_menu_principal():
 
 #################FUNCIONES PARA EL MENU#########################
 
-
-##pensar con paramtetros opcionales el genero, default en todo, y si se especifica el genero que calcule en base a eso
-#Recorrer la lista y determinar cuál es el superhéroe más alto de género F/M
-def encontrar_maximo_clave_genero(lista:list, clave:str, genero:str):
+#generar una lista que retorne otra lista con los heroes por genero
+def obtener_superheroes_por_genero(lista:list, genero:str)->list:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe la lista de héroes, y un string que representa el genero 'F'/'M'/'NB'
+    brief: recorre la lista de héroes y si es del género pasado por parámetro lo agrega a una lista
+    return: retorna la lista de géneros
     '''
-    bandera_primero = True
+    lista_generos = []
     for heroe in lista:
         if heroe['genero'] == genero:
-            if bandera_primero == True or heroe[clave] > maximo:
-                maximo = heroe[clave]
-                bandera_primero = False
-    print(maximo)
-
-#Recorrer la lista y determinar cuál es el superhéroe más débil de género M/NB
-def encontrar_minimo_clave_genero(lista:list, clave:str, genero:str):
-    '''
-    parameters: 
-    brief: 
-    return: 
-    '''
-    bandera_primero = True
-    for heroe in lista:
-        if heroe['genero'] == genero:
-            if bandera_primero == True or heroe[clave] < minimo:
-                minimo = heroe[clave]
-                bandera_primero = False
-    print(minimo)
-
-#Recorrer la lista y determinar la fuerza promedio de los  superhéroes de género NB
-def calcular_promedio_clave_genero(lista:list, clave:str, genero:str):
-    '''
-    parameters: 
-    brief: 
-    return: 
-    '''
-    contador_genero = 0
-    acumulador = 0
-    for heroe in lista:
-        if heroe['genero'] == genero:
-            acumulador += heroe[clave]
-            contador_genero += 1
-    promedio = acumulador/contador_genero
-    print(promedio)
+            lista_generos.append(heroe)
+    return lista_generos
 
 #Determinar cuántos superhéroes tienen cada tipo de color de ojos/color de pelo.
-def setear_lista_clave(lista:list, clave:str):
+def setear_lista_clave(lista:list, clave:str)->list:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe la lista de héroes y la clave sobre la que se va a generar una lista
+    brief: recorre la lista de héroes y genera una lista seteada con todas las keys de la clave pasada por parámetro
+    return: retorna la lista seteada
     '''
     lista_tipos = []
     for heroe in lista:
@@ -313,108 +298,45 @@ def setear_lista_clave(lista:list, clave:str):
     lista_tipos = set(lista_tipos)
     return lista_tipos
 
-def contar_superheroes_por_categoria(lista:list,clave:str):
+
+def contar_superheroes_por_categoria(lista:list,clave:str)->None:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe la lista de héroes y y la clave sobre la que se va a contar 
+    brief: recorre lista_tipos de 'setear_lista_clave' y por cada tipo recorre la lista de heroes y si coincide lo cuenta
+            e imprime el contador
+    return: nada
     '''
     lista_tipos = setear_lista_clave(lista,clave)
     for tipo in lista_tipos:
         contador = 0
         for heroe in lista:
             if heroe[clave] == tipo:
-                contador += 1
+                if tipo == '':
+                    tipo = 'no tiene'
+                    contador +=1
+                else:
+                    contador += 1
+
         print(f'{tipo}: {contador}')
 
-#Listar todos los superhéroes agrupados por color de ojos7inteligencia.
-def listar_superheroes_por_categoria(lista:list,clave:str):
+#Listar todos los superhéroes agrupados por color de ojos/inteligencia.
+def listar_superheroes_por_categoria(lista:list,clave:str)->None:
     '''
-    parameters: 
-    brief: 
-    return: 
+    parameters: recibe la lista de héroes y la clave sobre la que se va a contar
+    brief: recorre lista_tipos de 'setear_lista_clave' y por cada tipo recorre la lista de héroes y si coincide muestra el nombre
+    return: nada
     '''
     lista_tipos = setear_lista_clave(lista, clave)
     for tipo in lista_tipos:
-        print(tipo)
+        if tipo == '':
+            print('no tiene')
+        else:
+            print(tipo)
         for heroe in lista:
             if heroe[clave] == tipo:
                 print(f"\t {heroe['nombre']}")
 
 
-def stark_marvel_app(lista:list):
-    '''
-    parameters: 
-    brief: 
-    return: 
-    '''
 
-    bandera_opciones = False
-    while True:
-        opcion = stark_menu_principal()
-
-        match opcion:
-            case 1:
-                datos_normalizados = stark_normalizar_datos(lista)
-                if datos_normalizados:
-                    print('datos normalizados')
-                    bandera_opciones = True
-                else:
-                    print('Hubo un error al normalizar los datos. Verifique que la lista no este vacía o que los datos ya no se hayan normalizado anteriormente')
-            case 2:
-                if bandera_opciones:
-                    for heroe in lista:
-                        if heroe['genero'] == 'NB':
-                            print(obtener_nombre_y_dato(heroe, 'genero'))
-                else:
-                    print('debe normalizar los datos primero, elija la opcion uno')
-            case 3:
-                if bandera_opciones:
-                    encontrar_maximo_clave_genero(lista,'altura', 'F')
-                else:
-                    print('debe normalizar los datos primero, elija la opcion uno')
-            case 4:
-                if bandera_opciones:
-                    encontrar_maximo_clave_genero(lista,'altura', 'M')
-                else:
-                    print('debe normalizar los datos primero, elija la opcion uno')
-            case 5:
-                if bandera_opciones:
-                    encontrar_minimo_clave_genero(lista, 'fuerza', 'M')
-                    pass
-                else:
-                    print('debe normalizar los datos primero, elija la opcion uno')
-            case 6:
-                if bandera_opciones:
-                    encontrar_minimo_clave_genero(lista, 'fuerza', 'NB')
-                else:
-                    print('debe normalizar los datos primero, elija la opcion uno')
-            case 7:
-                if bandera_opciones:
-                    calcular_promedio_clave_genero(lista, 'fuerza', 'NB')
-                else:
-                    print('debe normalizar los datos primero, elija la opcion uno')
-            case 8:
-                if bandera_opciones:
-                    contar_superheroes_por_categoria(lista, 'color_ojos')
-                else:
-                    print('debe normalizar los datos primero, elija la opcion uno')
-            case 9:
-                if bandera_opciones:
-                    contar_superheroes_por_categoria(lista, 'color_pelo')
-                else:
-                    print('debe normalizar los datos primero, elija la opcion uno')
-            case 10:
-                if bandera_opciones:
-                    listar_superheroes_por_categoria(lista, 'color_ojos')
-                else:
-                    print('debe normalizar los datos primero, elija la opcion uno')
-            case 11:
-                if bandera_opciones:
-                    listar_superheroes_por_categoria(lista, 'inteligencia')
-                else:
-                    print('debe normalizar los datos primero, elija la opcion uno')
-            case 12:
-                break
 
 
