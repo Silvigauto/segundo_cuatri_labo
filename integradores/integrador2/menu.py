@@ -21,7 +21,6 @@ def stark_marvel_app(lista:list):
                 bandera_opciones = True
             else:
                 print('Hubo un error al normalizar los datos. Verifique que la lista no esté vacía o que los datos ya no se hayan normalizado anteriormente')
-        
         #si el usuario quiere salir del menu directamente
         elif opcion == 12:
             break
@@ -49,8 +48,8 @@ def stark_marvel_app(lista:list):
                 if datos_normalizados == False:
                     print('ya se ha normalizado la lista anteriormente')
             case 2:
-                for heroe in lista:
-                    if heroe['genero'] == 'NB':
+                lista_no_binarios = obtener_superheroes_por_genero(lista, 'NB')
+                for heroe in lista_no_binarios:
                         print(obtener_nombre_y_dato(heroe, 'genero'))
             case 3:
                 lista_femeninos = obtener_superheroes_por_genero(lista, 'F')
@@ -78,9 +77,7 @@ def stark_marvel_app(lista:list):
                     print(obtener_nombre_y_dato(heroe, 'fuerza'))
             case 7:
                 lista_no_binarios = obtener_superheroes_por_genero(lista, 'NB')
-                acumulador = sumar_dato_heroe(lista_no_binarios, 'fuerza')
-                promedio = dividir(acumulador, len(lista_no_binarios))
-                print(f'Promedio: {promedio:0.2f}')
+                print(mostrar_promedio_dato(lista_no_binarios, 'fuerza'))
             case 8:
                 contar_superheroes_por_categoria(lista, 'color_ojos')
             case 9:

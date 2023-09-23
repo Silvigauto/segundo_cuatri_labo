@@ -1,5 +1,6 @@
 #Silvina Gauto - 1B - Integrador 2 
 
+from data_stark import * 
 #0
 def stark_normalizar_datos(lista:list)->bool:
     '''
@@ -27,14 +28,13 @@ def stark_normalizar_datos(lista:list)->bool:
 def obtener_dato(heroe:dict, clave:str)->bool:
     '''
     parameters: recibe un diccionario y una clave de este
-    brief: valida si el diccionario está vacio y si la clave existe en el diccionario
+    brief: valida si el diccionario está vacío y si la clave existe en el diccionario
     return: retorna True si no es un diccionario vacío y si la clave existe en este
             retorna False en caso contrario
     '''
     bandera_obtener_dato = False
-    if len(heroe) > 0:
-        #if 'nombre' in heroe
-        if clave in heroe:
+    for clave_diccionario in heroe:
+        if clave_diccionario == clave:
             bandera_obtener_dato = True
     
     return bandera_obtener_dato
@@ -44,32 +44,37 @@ def obtener_dato(heroe:dict, clave:str)->bool:
 def obtener_nombre(heroe:dict)->str:
     '''
     parameters: recibe un diccionario que representa al héroe
-    brief: en base a la función 'obtener_dato' (para validar si el diccionario no está vacio) y si existe la clave 'nombre'
+    brief: en base a la función 'obtener_dato' (para validar si el diccionario no está vacio) y si existe la clave 
         formatea el nombre del héroe
     return: retorna el nombre del héroe si pasó las validaciones
             retorna False en caso contrario
     '''
-    bandera_obtener_nombre = obtener_dato(heroe, 'hola')
+    bandera_obtener_nombre = obtener_dato(heroe, 'altura')
     if bandera_obtener_nombre:
-        return f"Nombre: {heroe['nombre']}"
+        nombre_formateado = f"Nombre: {heroe['nombre']}"
     else:
-        return bandera_obtener_nombre
+        nombre_formateado = False
+    
+    return nombre_formateado
+
 
 
 #2
 def obtener_nombre_y_dato(heroe:dict, clave:str)->str:
     '''
     parameters: recibe un diccionario que representa el héroe y su clave
-    brief: en base a 'obtener_dato' (valida si el diccionario no esta vacio y si existe la clave) formatea el string con el nombre y la clave pasada
+    brief: en base a 'obtener_dato' (valida si el diccionario no está vacío y si existe la clave) formatea el string con el nombre y la clave pasada
         por parámetro
     return: retorna el string formateado
             retorna False en caso de no pasar las validaciones
     '''
     bandera_obtener_nombre = obtener_dato(heroe, clave)
     if bandera_obtener_nombre:
-        return f"Nombre: {heroe['nombre']} | {clave}: {heroe[clave]}"
+        nombre_dato_formateado =  f"Nombre: {heroe['nombre']} | {clave}: {heroe[clave]}"
     else:
-        return bandera_obtener_nombre
+        nombre_dato_formateado =  False
+    
+    return nombre_dato_formateado
 
 #3.1
 def obtener_maximo(lista:list, clave:str)->float:
@@ -109,7 +114,7 @@ def obtener_minimo(lista:list, clave:str)->float:
 
     return minimo_dato
 
-#3.3 obtener el numero de afuera ?
+#3.3 obtener el numero de afuera ? / validaciones extras-> numero y clave sea float/int 
 def obtener_dato_cantidad(lista:list, numero:int, clave:str)->list:
     '''
     parameters: recibe la lista de héroes, el número máximo o mínimo a encontrar, recibe la clave del héroe
@@ -118,11 +123,18 @@ def obtener_dato_cantidad(lista:list, numero:int, clave:str)->list:
     '''
     lista_coincidencias = []
     for heroe in lista:
-        if heroe[clave] == numero:
-            lista_coincidencias.append(heroe)
+        if type(numero) == int or type(numero) == float:
+            if type(heroe[clave]) == int or type(heroe[clave]) == float:
+                if heroe[clave] == numero:
+                    lista_coincidencias.append(heroe)
+            else:
+                lista_coincidencias = False
+        else:
+            lista_coincidencias = False
+            
     return lista_coincidencias
 
-#3.4 obtengo los datos de afuera para imprimir?
+
 def stark_imprimir_heroes(lista)->bool:
     '''
     parameters: recibe la lista de héroes   
@@ -131,7 +143,20 @@ def stark_imprimir_heroes(lista)->bool:
     '''
     if len(lista) > 0:
         for heroe in lista:
-            print(heroe)
+            nombre = f"Nombre: {heroe['nombre']}"
+            identidad = f"Identidad: {heroe['identidad']}"
+            empresa = f"Empresa: {heroe['empresa']}"
+            altura = f"Altura:{heroe['altura']}"
+            peso = f"Peso: {heroe['peso']}"
+            genero = f"Genero: {heroe['genero']}"
+            color_ojos = f"Color ojos: {heroe['color_ojos']}"
+            color_pelo = f"Color pelo:{heroe['color_pelo']}"
+            fuerza = f"Fuerza: {heroe['fuerza']}"
+            inteligencia = f"Inteligencia: {heroe['inteligencia']}"
+            
+
+            print(f"\n{nombre}\n{identidad}\n{empresa}\n{altura}\n{peso}\n{genero}\n{color_ojos}\n{color_pelo}\n{fuerza}\n{inteligencia}\n")
+            
     else:
         return False
 
@@ -140,14 +165,19 @@ def stark_imprimir_heroes(lista)->bool:
 def sumar_dato_heroe(lista:list, clave:str)->float:
     '''
     parameters: recibe la lista de héroes y la clave a sumar
-    brief: recorre la lista de héroes y suma todos los datos de la clave pasada por parámetro
+    brief: recorre la lista de héroes y verifica
+            si cada héroe es de tipo diccionario y si este no está vacío
+            si la clave existe en el diccionario           
+            y si es de tipo numérico
+            suma todos los datos de la clave pasada por parámetro
     return: retorna el acumulador final
     '''
     acumulador_clave = 0
     for heroe in lista:
-        if type(heroe) == dict and len(heroe) != 0:
-            acumulador_clave += heroe[clave]
-    
+        if type(heroe) == dict:
+            if obtener_dato(heroe,clave):
+                if type(heroe[clave]) == int or type(heroe[clave]) == float:
+                    acumulador_clave += heroe[clave]
     return acumulador_clave
 
 #4.2
@@ -158,12 +188,13 @@ def dividir(dividendo: float, divisor:int)->float:
     return: retorna el resultado de la división
             retorna False en caso que el divisor sea 0
     '''
-    if divisor != 0:
-        resultado = dividendo/divisor
-        return resultado
-    else:
-        return False
-    
+    resultado = False
+    if type(dividendo) == int or type(dividendo) == float:
+        if type(divisor) == int or type(divisor) == float:
+            if divisor != 0:
+                resultado = dividendo/divisor                   
+    return resultado
+
 
 #4.3
 def calcular_promedio(lista:list, clave:str)->float:
@@ -177,44 +208,28 @@ def calcular_promedio(lista:list, clave:str)->float:
     promedio = dividir(total_dato, len(lista))
     return promedio
 
-'''
-4.4 Crear la función ‘mostrar_promedio_dato’ la cual recibirá como parámetro una lista de héroes y un string que representa la clave del dato
-Se debe validar que el dato que se encuentra en esa clave sea de tipo int o float. Caso contrario retornaria False
-Se debe validar que la lista a manipular no esté vacía , en caso de que esté vacía se retornaria también False
-'''
-
-#4.4 --> falta validacion del tipo dato int o float
-def mostrar_promedio_dato1(lista:list, clave:str):
-    '''
-    parameters: 
-    brief: 
-    return: 
-    '''
-    if len(lista) > 0:
-        for heroe in lista:
-            if type(heroe[clave]) == int or type(heroe[clave]) == float:
-                pass
-            else:
-                return False
-    else:
-        return False
 
 def mostrar_promedio_dato(lista:list, clave:str):
     '''
-    parameters: 
-    brief: 
+    parameters: recibe la lista de heroes y la clave sobre la que se calcula el promedio    
+    brief: verifica que la lista no esé vacía
+            que el tipo de dato en la clave sea numerico
+            que la clave si exista en el diccionario y que este no este vacío
     return: 
     '''
-    if len(lista) > 0:
-        if type(clave) == int or type(clave) == float:
-            promedio = calcular_promedio(lista, clave)
-            print(promedio)
-        else:
-            return False
-    else:
-        return False
+    contador = 0
+    promedio = False
+    for heroe in lista:
+        if type(heroe[clave]) == int or type(heroe[clave]) == float:
+            if obtener_dato(heroe,clave):
+                    contador += 1
 
-#pasar el menu por parámetro????
+    if contador == len(lista):
+        promedio = calcular_promedio(lista,clave)
+
+    return promedio
+
+
 
 def imprimir_menu()->None:
     '''
@@ -245,10 +260,11 @@ def validar_entero(numero:str)->bool:
     return: retorna True en caso que el string sea númerico
             retorna False en caso de que el string no sea enteramente numérico
     '''
+    validacion = False
     if numero.isdigit():
-        return True
-    else:
-        return False
+        validacion = True
+
+    return validacion
 
 #5.3
 def stark_menu_principal()->int:
@@ -282,6 +298,8 @@ def obtener_superheroes_por_genero(lista:list, genero:str)->list:
     for heroe in lista:
         if heroe['genero'] == genero:
             lista_generos.append(heroe)
+        
+
     return lista_generos
 
 #Determinar cuántos superhéroes tienen cada tipo de color de ojos/color de pelo.
@@ -293,9 +311,12 @@ def setear_lista_clave(lista:list, clave:str)->list:
     '''
     lista_tipos = []
     for heroe in lista:
-        if clave in heroe:
+        if obtener_dato(heroe,clave):
             lista_tipos.append(heroe[clave])
-    lista_tipos = set(lista_tipos)
+
+    if len(lista_tipos) > 0:
+        lista_tipos = set(lista_tipos)
+
     return lista_tipos
 
 
@@ -307,17 +328,20 @@ def contar_superheroes_por_categoria(lista:list,clave:str)->None:
     return: nada
     '''
     lista_tipos = setear_lista_clave(lista,clave)
-    for tipo in lista_tipos:
-        contador = 0
-        for heroe in lista:
-            if heroe[clave] == tipo:
-                if tipo == '':
-                    tipo = 'no tiene'
-                    contador +=1
-                else:
-                    contador += 1
+    if len(lista_tipos) > 0:
+        for tipo in lista_tipos:
+            contador = 0
+            for heroe in lista:
+                if heroe[clave] == tipo:
+                    if tipo == '':
+                        tipo = 'no tiene'
+                        contador +=1
+                    else:
+                        contador += 1
+            print(f'{tipo}: {contador}')
+    else:
+        print('hubo un error')
 
-        print(f'{tipo}: {contador}')
 
 #Listar todos los superhéroes agrupados por color de ojos/inteligencia.
 def listar_superheroes_por_categoria(lista:list,clave:str)->None:
@@ -327,14 +351,17 @@ def listar_superheroes_por_categoria(lista:list,clave:str)->None:
     return: nada
     '''
     lista_tipos = setear_lista_clave(lista, clave)
-    for tipo in lista_tipos:
-        if tipo == '':
-            print('no tiene')
-        else:
-            print(tipo)
-        for heroe in lista:
-            if heroe[clave] == tipo:
-                print(f"\t {heroe['nombre']}")
+    if len(lista_tipos) > 0:
+        for tipo in lista_tipos:
+            if tipo == '':
+                print('no tiene')
+            else:
+                print(tipo)
+            for heroe in lista:
+                if heroe[clave] == tipo:
+                    print(f"\t {heroe['nombre']}")
+    else:
+        print('hubo un error')
 
 
 
