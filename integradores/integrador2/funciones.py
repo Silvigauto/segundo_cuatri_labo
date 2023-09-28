@@ -32,12 +32,14 @@ def obtener_dato(heroe:dict, clave:str)->bool:
     return: retorna True si no es un diccionario vacío y si la clave existe en este
             retorna False en caso contrario
     '''
+
     bandera_obtener_dato = False
     for clave_diccionario in heroe:
         if clave_diccionario == clave:
-            bandera_obtener_dato = True
-    
+            bandera_obtener_dato = True   
     return bandera_obtener_dato
+
+
 
 
 #1.2
@@ -69,8 +71,9 @@ def obtener_nombre_y_dato(heroe:dict, clave:str)->str:
             retorna False en caso de no pasar las validaciones
     '''
     bandera_obtener_nombre = obtener_dato(heroe, clave)
+    nombre_formateado = obtener_nombre(heroe)
     if bandera_obtener_nombre:
-        nombre_dato_formateado =  f"Nombre: {heroe['nombre']} | {clave}: {heroe[clave]}"
+        nombre_dato_formateado =  f"{nombre_formateado} | {clave}: {heroe[clave]}"
     else:
         nombre_dato_formateado =  False
     
@@ -81,15 +84,22 @@ def obtener_maximo(lista:list, clave:str)->float:
     '''
     parameters: recibe la lista de héroes y una clave del diccionario
     brief: recorre la lista y obtiene el numero máximo de la clave pasada por parámetro
+            valida que la lista no este vacia
+            valida que la clave pasada por parametro si exista en el heroe
+            valida que el dato a buscar sea de tipo int o float
+            
     return: retorna el máximo dato 
             retorna False si la clave pasada no es de tipo numérico
     '''
     bandera_primero = True
     for heroe in lista:
-        if type(heroe[clave]) == int or type(heroe[clave]) == float:
-            if bandera_primero == True or heroe[clave] > maximo_dato:
-                bandera_primero = False
-                maximo_dato = heroe[clave]
+        if obtener_dato(heroe,clave):
+            if type(heroe[clave]) == int or type(heroe[clave]) == float:
+                if bandera_primero == True or heroe[clave] > maximo_dato:
+                    bandera_primero = False
+                    maximo_dato = heroe[clave]
+            else:
+                maximo_dato = False
         else:
             maximo_dato = False
 
@@ -100,41 +110,59 @@ def obtener_minimo(lista:list, clave:str)->float:
     '''
     parameters: recibe la lista de héroes y una clave del diccionario   
     brief: recorre la lista y obtiene el número mínimo de la clave pasada por parámetro
+            valida que la lista no este vacia
+            valida que la clave pasada por parametro si exista en el heroe
+            valida que el dato a buscar sea de tipo int o float
     return: retorna el mínimo dato  
             retorna False si la clave pasada no es de tipo numérico
     '''
     bandera_primero = True
     for heroe in lista:
-        if type(heroe[clave]) == int or type(heroe[clave]) == float:
-            if bandera_primero == True or heroe[clave] < minimo_dato:
-                bandera_primero = False
-                minimo_dato = heroe[clave]
+        if obtener_dato(heroe,clave):
+            if type(heroe[clave]) == int or type(heroe[clave]) == float:
+                if bandera_primero == True or heroe[clave] < minimo_dato:
+                    bandera_primero = False
+                    minimo_dato = heroe[clave]
+            else:
+                minimo_dato = False
         else:
             minimo_dato = False
 
     return minimo_dato
 
-#3.3 obtener el numero de afuera ? / validaciones extras-> numero y clave sea float/int 
+#3.3 obtener el numero de afuera ? /
+'''
+maximo = obtener_maximo(lista_personajes, 'altura') --> float 
+'''
 def obtener_dato_cantidad(lista:list, numero:int, clave:str)->list:
     '''
     parameters: recibe la lista de héroes, el número máximo o mínimo a encontrar, recibe la clave del héroe
     brief: recorre la lista de héroes y agrega a una lista los diccionarios que coincidan con el máximo o el mínimo
+            valida que la lista no este vacía
+            valida que la clave pasada por parámetro si exista en el héroe
+            valida que el dato a buscar sea de tipo int o float
     return: retorna la lista de coincidencias
+            retorna false si no hubo lista de concidencias
     '''
     lista_coincidencias = []
     for heroe in lista:
-        if type(numero) == int or type(numero) == float:
-            if type(heroe[clave]) == int or type(heroe[clave]) == float:
-                if heroe[clave] == numero:
-                    lista_coincidencias.append(heroe)
+        if obtener_dato(heroe, clave):
+            if type(numero) == int or type(numero) == float:
+                if type(heroe[clave]) == int or type(heroe[clave]) == float:
+                    if heroe[clave] == numero:
+                        lista_coincidencias.append(heroe)
+                else:
+                    lista_coincidencias = False
             else:
                 lista_coincidencias = False
         else:
             lista_coincidencias = False
+        
             
     return lista_coincidencias
 
 
+#3.4
 def stark_imprimir_heroes(lista)->bool:
     '''
     parameters: recibe la lista de héroes   
@@ -208,7 +236,7 @@ def calcular_promedio(lista:list, clave:str)->float:
     promedio = dividir(total_dato, len(lista))
     return promedio
 
-
+#4.4
 def mostrar_promedio_dato(lista:list, clave:str):
     '''
     parameters: recibe la lista de heroes y la clave sobre la que se calcula el promedio    
@@ -287,6 +315,43 @@ def stark_menu_principal()->int:
 
 #################FUNCIONES PARA EL MENU#########################
 
+#Recorrer la lista y determinar cuál es el superhéroe más alto de género F/M
+def imprimir_heroes_mas_altos_genero(lista:list, genero:str, clave:str):
+    '''
+    parameters: recibe la lista de héroes, el genero sobre la que se crea una nueva lista y la clave sobre la que se calcula el maximo
+                en base a la nueva lista de generos
+    brief: genera la lista por genero, obtiene el maximo, e imprime la coincidencias
+    return: nada
+    '''
+    lista_genero = obtener_superheroes_por_genero(lista, genero)
+    maximo = obtener_maximo(lista_genero, clave)
+    lista_coincidencias = obtener_dato_cantidad(lista_genero, maximo, clave)
+
+    if lista_coincidencias == False:
+        print('hubo un error en la lista')
+    elif len(lista_coincidencias) > 0:
+        for heroe in lista_coincidencias:
+            print(obtener_nombre_y_dato(heroe, 'altura'))
+
+
+#Recorrer la lista y determinar cuál es el superhéroe más débil de género M/NB
+def imprimir_heroes_mas_debiles_genero(lista:list, genero:str, clave:str):
+    '''
+    parameters: recibe la lista de héroes, el genero sobre la que se crea una nueva lista y la clave sobre la que se calcula el minimo
+            en base a la nueva lista de generos
+    brief: genera la lista por genero, obtiene el minimo, e imprime la coincidencias
+    return: nada
+    '''
+    lista_genero = obtener_superheroes_por_genero(lista,genero)
+    minimo = obtener_minimo(lista_genero,clave)
+    lista_coincidencias = obtener_dato_cantidad(lista_genero, minimo, clave)
+
+    if lista_coincidencias == False:
+        print('hubo un error en la lista')
+    elif len(lista_coincidencias) > 0:
+        for heroe in lista_coincidencias:
+            print(obtener_nombre_y_dato(heroe, 'fuerza'))
+
 #generar una lista que retorne otra lista con los heroes por genero
 def obtener_superheroes_por_genero(lista:list, genero:str)->list:
     '''
@@ -298,7 +363,6 @@ def obtener_superheroes_por_genero(lista:list, genero:str)->list:
     for heroe in lista:
         if heroe['genero'] == genero:
             lista_generos.append(heroe)
-        
 
     return lista_generos
 
@@ -362,8 +426,4 @@ def listar_superheroes_por_categoria(lista:list,clave:str)->None:
                     print(f"\t {heroe['nombre']}")
     else:
         print('hubo un error')
-
-
-
-
 

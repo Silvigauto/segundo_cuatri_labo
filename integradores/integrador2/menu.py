@@ -52,29 +52,13 @@ def stark_marvel_app(lista:list):
                 for heroe in lista_no_binarios:
                         print(obtener_nombre_y_dato(heroe, 'genero'))
             case 3:
-                lista_femeninos = obtener_superheroes_por_genero(lista, 'F')
-                maximo = obtener_maximo(lista_femeninos, 'altura')
-                lista_coincidencias = obtener_dato_cantidad(lista_femeninos, maximo, 'altura')
-                for heroe in lista_coincidencias:
-                    print(obtener_nombre_y_dato(heroe, 'altura'))
+                imprimir_heroes_mas_altos_genero(lista, 'F', 'altura')
             case 4:
-                lista_masculinos = obtener_superheroes_por_genero(lista, 'M')
-                maximo = obtener_maximo(lista_masculinos, 'altura')
-                lista_coincidencias = obtener_dato_cantidad(lista_masculinos, maximo, 'altura')
-                for heroe in lista_coincidencias:
-                    print(obtener_nombre_y_dato(heroe, 'altura'))
+                imprimir_heroes_mas_altos_genero(lista, 'M', 'altura')
             case 5:
-                lista_masculinos = obtener_superheroes_por_genero(lista, 'M')
-                minimo = obtener_minimo(lista_masculinos, 'fuerza')
-                lista_coincidencias = obtener_dato_cantidad(lista_masculinos, minimo, 'fuerza')
-                for heroe in lista_coincidencias:
-                    print(obtener_nombre_y_dato(heroe, 'fuerza'))
+                imprimir_heroes_mas_debiles_genero(lista, 'M', 'fuerza')
             case 6:
-                lista_no_binarios = obtener_superheroes_por_genero(lista, 'NB')
-                minimo = obtener_minimo(lista_no_binarios, 'fuerza')
-                lista_coincidencias = obtener_dato_cantidad(lista_no_binarios, minimo, 'fuerza')
-                for heroe in lista_coincidencias:
-                    print(obtener_nombre_y_dato(heroe, 'fuerza'))
+                imprimir_heroes_mas_debiles_genero(lista, 'NB', 'fuerza')
             case 7:
                 lista_no_binarios = obtener_superheroes_por_genero(lista, 'NB')
                 print(mostrar_promedio_dato(lista_no_binarios, 'fuerza'))
