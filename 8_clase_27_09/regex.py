@@ -37,7 +37,7 @@ re.findall("[a-zA-Z]{3}", "Uno 1 dos 2 tres 3 cuatro 44") #['Uno', 'dos', 'tre',
 re.findall("[a-zA-Z]{3,6}", "Uno 1 dos 2 tres 3 cuatro 44") #['Uno', 'dos', 'tres', 'cuatro'] --> minimo y maximo
 
 
-#SUB --> REEMPLAZA UNA COSA CON OTRA
+#SUB --> REEMPLAZA UNA COSA CON OTRA, RECIBE --> QUE QUIERO REEMPLZAR, POR QUÉ LO QUIERO REEMPLAZAR Y EN DONDE REEMPLAZAR
 texto = "abc abc ccc ddd abc aaa"
 result = re.sub('abc', '', "abc abc ccc ddd abc aaa") #  ccc ddd  aaa
 result = re.sub('abc ', '', "abc abc ccc ddd abc aaa")#ccc ddd aaa --> incluye los espacios

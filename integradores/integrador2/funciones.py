@@ -1,6 +1,5 @@
 #Silvina Gauto - 1B - Integrador 2 
 
-from data_stark import * 
 #0
 def stark_normalizar_datos(lista:list)->bool:
     '''
