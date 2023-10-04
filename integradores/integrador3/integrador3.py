@@ -166,18 +166,214 @@ Todos los elementos de la lista sean del tipo diccionario
 La función retornara la cadena generada si salió todo correctamente y False en caso de error
 
 '''
-
+#2.2
 def stark_generar_codigos_heroes(lista:list):
+    cadena_generada = False
     contador = 0
     for heroe in lista:
-        id_heroe_posicion = lista.index(heroe) +1
-        codigo_heroe = generar_codigo_heroe(heroe,id_heroe_posicion)
-        iniciales = extraer_iniciales(heroe['nombre'])
-        nombre_formato = obtener_dato_formato(heroe['nombre'])
-        print(f'* {nombre_formato} ({iniciales}) | {codigo_heroe}')
-        contador += 1
+        if type(heroe) == dict:
+            id_heroe_posicion = lista.index(heroe) +1
+            codigo_heroe = generar_codigo_heroe(heroe,id_heroe_posicion)
+            iniciales = extraer_iniciales(heroe['nombre'])
+            nombre_formato = obtener_dato_formato(heroe['nombre'])
+            cadena_generada = f'* {nombre_formato} ({iniciales}) | {codigo_heroe}'
+            contador += 1
     print(f'se asignaron {contador} codigos')
+    return cadena_generada
         
+'''
+Crear la función ‘sanitizar_entero’ la cual recibirá como parámetro:
+numero_str: un string que representa un posible número entero
+La función deberá analizar el string recibido y determinar si es un número entero positivo.  La función debe devolver distintos valores según el problema encontrado:
+Si contiene carácteres no numéricos retornar -1
+Si el número es negativo se deberá retornar un -2
+Si ocurren otros errores que no permiten convertirlo a entero entonces se deberá retornar -3
+También deberá quitar los espacios en blanco de atras y adelante del string en caso que los tuviese
+En caso que se verifique que el texto contenido en el string es un número entero positivo, retornarlo convertido en entero
 
-stark_generar_codigos_heroes(lista_personajes)
+'''
+#3.1
+def sanitizar_entero(numero_str:str):
+    numero = numero_str.strip()
+    if numero[0] == '-':
+        numero = -2
+    elif numero_str.isdigit():
+        numero = int(numero_str)
+    elif numero_str.isdigit() == False:
+        numero = -1
+    else:
+        numero = -3
+    
+    return numero
 
+
+
+'''
+
+Crear la función ‘sanitizar_flotante’ la cual recibirá como parámetro:
+numero_str: un string que representa un posible número decimal
+La función deberá analizar el string recibido y determinar si es un número flotante positivo.  La función debe devolver distintos valores según el problema encontrado:
+Si contiene carácteres no numéricos retornar -1
+Si el número es negativo se deberá retornar un -2
+Si ocurren otros errores que no permiten convertirlo a entero entonces se deberá retornar -3
+También deberá quitar los espacios en blanco de atras y adelante del string en caso que los tuviese
+En caso que se verifique que el texto contenido en el string es un número flotante positivo, retornarlo convertido en flotante
+'''
+#3.2
+def sanitizar_flotante(numero_str:str):
+    numero = numero_str.strip()
+    if numero[0] == '-':
+        numero = -2
+    elif '.' in numero or numero.isdigit():
+        numero = float(numero_str)
+    elif numero.isdigit() == False:
+        numero = -1
+    else:
+        numero = -3
+
+    return numero
+
+'''
+Crear la función ‘sanitizar_string’’ la cual recibirá como parámetro
+valor_str: un string que representa el texto a validar
+valor_por_defecto: un string que representa un valor por defecto (parámetro opcional, inicializarlo con ‘-’)
+
+La función deberá analizar el string recibido y determinar si es solo texto (sin números). En caso de encontrarse números retornar “N/A”
+
+En el caso que valor_str contenga una barra ‘/’ deberá ser reemplazada por un espacio
+
+El espacio es un caracter válido 
+
+En caso que se verifique que el parámetro recibido es solo texto, se deberá retornar el mismo convertido todo a minúsculas
+
+En el caso que el texto a validar se encuentre vacío y que nos hayan pasado un valor por defecto, entonces retornar el valor por defecto convertido a minúsculas
+
+Quitar los espacios en blanco de atras y adelante de ambos parámetros en caso que los tuviese
+'''
+
+#3.3 --> FALTA VALIDAR '253 HOLA' NUMEROS
+
+def sanitizar_string(valor_str:str, valor_por_defecto = '-'):
+    bandera_espacio = False
+    valor_str = re.sub('/', ' ', valor_str)
+
+    
+    if len(valor_str) > 0:
+        if valor_str.isalpha():
+            valor_str = valor_str.lower()
+        else:
+            for caracter in valor_str:
+                if caracter == ' ':
+                    bandera_espacio = True
+            if bandera_espacio:
+                valor_str = valor_str.lower()
+            else:
+                valor_str = 'N/A'
+    else:
+        valor_str = valor_por_defecto.lower()
+
+    valor_str = valor_str.strip()
+
+    return valor_str
+
+#print(sanitizar_string(lista_personajes[0]['altura']))
+'''
+3.4. Crear la función ‘sanitizar_dato’ la cual recibirá como parámetros:
+● heroe: un diccionario con los datos del personaje
+● clave: un string que representa el dato a sanitizar (la clave del
+diccionario). Por ejemplo altura
+● tipo_dato: un string que representa el tipo de dato a sanitizar. Puede
+tomar los valores: ‘string’, ‘entero’ y ‘flotante’
+La función deberá sanitizar el valor del diccionario correspondiente a la clave
+y al tipo de dato recibido
+Para sanitizar los valores se deberán utilizar las funciones creadas en los
+puntos 3.1, 3.2, 3.3 
+Se deberá validar:
+● Que tipo_dato se encuentre entre los valores esperados (‘string, ‘entero,
+‘flotante)’ la validación debe soportar que nos lleguen mayúsculas o
+minúsculas. En caso de encontrarse un valor no válido informar por
+pantalla: ‘Tipo de dato no reconocido’
+
+● Que clave exista como clave dentro del diccionario heroe. En caso de
+no encontrarse, informar por pantalla: ‘La clave especificada no
+existe en el héroe’. (en este caso la validación es sensible a
+mayúsculas o minúsculas)
+Ejemplo de llamada a la función válida:
+sanitizar_dato(dict_personaje, “altura”, “Flotante”)
+La función deberá devolver True en caso de haber sanitizado algún dato y
+False en caso contrario.
+'''
+
+def sanitizar_dato(heroe:dict, clave:str, tipo_dato:str):
+    bandera_normalizacion = False
+    bandera_existe_clave = False
+
+    tipo_dato = tipo_dato.lower()
+
+    if tipo_dato == 'string' or tipo_dato == 'flotante' or tipo_dato == 'entero':
+        for key in heroe:
+            if key == clave:
+                bandera_existe_clave = True
+        if bandera_existe_clave:
+            match tipo_dato:
+                case 'string':
+                    heroe[clave] = sanitizar_string(heroe[clave])
+                    if heroe[clave]  != 'N/A':
+                        bandera_normalizacion = True
+                case 'flotante':
+                    heroe[clave] = sanitizar_flotante(heroe[clave])
+                    if type(heroe[clave]) == float:
+                        bandera_normalizacion = True
+                case 'entero':
+                    heroe[clave] = sanitizar_entero(heroe[clave])
+                    if heroe[clave]  != -1 and heroe[clave]   != -2 and heroe[clave]   != -3 :
+                        bandera_normalizacion = True
+        else:
+            print('la clave especificada no existe en el diccionario')
+
+    else:
+        print('Tipo de dato no reconocido')
+    
+    return bandera_normalizacion
+
+
+'''
+3.5. Actualizar la función 'stark_normalizar_datos’ usando las funciones de
+sanitizar.
+La función deberá recorrer la lista de héroes y sanitizar los valores solo de las
+siguientes claves: ‘altura’, ‘peso’, ‘color_ojos’, ‘color_pelo’, ‘fuerza’ e
+‘inteligencia’
+● Validar que la lista de héroes no esté vacía para realizar sus acciones,
+caso contrario imprimirá el mensaje: “Error: Lista de héroes vacía”
+● Reutilizar la función sanitizar_dato
+'''
+
+##USAR REGEX
+def stark_normalizar_datos(lista:list):
+    if len(lista) !=0:
+        for heroe in lista:
+            for clave in heroe:
+                if clave == 'altura':
+                    sanitizar_dato(heroe, clave, 'flotante')
+                if clave == 'peso':
+                    sanitizar_dato(heroe, clave, 'flotante')
+                if clave == 'color_ojos':
+                    sanitizar_dato(heroe, clave, 'string')
+                if clave == 'color_pelo':
+                    if heroe[clave] == '':
+                        heroe[clave] = 'no tiene'
+                    sanitizar_dato(heroe, clave, 'string')
+                if clave == 'fuerza':
+                    sanitizar_dato(heroe, clave, 'entero')
+                if clave == 'inteligencia':
+                    if heroe[clave] == '':
+                        heroe[clave] = 'no tiene'
+                    sanitizar_dato(heroe, clave, 'string')
+    else:
+        print('error, lista de heroes vacia')
+
+
+
+stark_normalizar_datos(lista_personajes)
+for personaje in lista_personajes:
+    print(f"{personaje['nombre']} - {personaje['color_pelo']}")

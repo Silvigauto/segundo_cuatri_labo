@@ -1,5 +1,5 @@
 #Silvina Gauto - 1B - Integrador 2 
-
+from data_stark import *
 #0
 def stark_normalizar_datos(lista:list)->bool:
     '''
@@ -23,6 +23,9 @@ def stark_normalizar_datos(lista:list)->bool:
 
     return bandera_datos_normalizados
 
+print(lista_personajes)
+stark_normalizar_datos(lista_personajes)
+print(lista_personajes)
 #1.1
 def obtener_dato(heroe:dict, clave:str)->bool:
     '''
