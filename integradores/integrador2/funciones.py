@@ -23,9 +23,7 @@ def stark_normalizar_datos(lista:list)->bool:
 
     return bandera_datos_normalizados
 
-print(lista_personajes)
-stark_normalizar_datos(lista_personajes)
-print(lista_personajes)
+
 #1.1
 def obtener_dato(heroe:dict, clave:str)->bool:
     '''
@@ -310,9 +308,11 @@ def stark_menu_principal()->int:
     opcion_usuario = validar_entero(opcion)
 
     if opcion_usuario:
-        return int(opcion)
+        opcion = int(opcion)
     else:
-        return False
+        opcion = False
+    return opcion
+
 
 
 #################FUNCIONES PARA EL MENU#########################
