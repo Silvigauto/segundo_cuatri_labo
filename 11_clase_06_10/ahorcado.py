@@ -67,3 +67,4 @@ def ahorcado (temas:dict):
     print("juego finalizado")
             
 
+ahorcado(diccionario_de_temas)
