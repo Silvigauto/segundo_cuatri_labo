@@ -13,20 +13,24 @@ def obtener_palabra(temas: dict, clave: str):
     palabra = palabra.upper()
     return palabra
 
-def validar_letras(lista_letras:list,letra:str):
-    validacion = letra.isalpha() and letra.upper() not in (lista_letras)
-    return validacion
+def validar_letras(lista_letras:list):
+    letra = input('ingrese letra: ')
+    while not letra.isalpha() or len(letra) != 1 or letra.upper() in lista_letras:
+        letra = input('El caracter ingresado ya fue ingresado o no es valido')
+    
+    letra = letra.upper()
+    return letra
 
-
+                #arquero    []
 def reemplazar_letras(palabra:str, lista_letras:list):
-    abecedario = "abcdefghijklmnopqrstuvwxyz".upper()
-    palabra_oculta = palabra
+    abecedario = "abcdefghijklmnopqrstuvwxyz".upper() #convierto a mayuscula
+    palabra_oculta = palabra #crea una variable 'palabra_oculta' y la asigna a la palabra a adivinar
     for letra in abecedario:
         if letra not in lista_letras:
                 palabra_oculta = re.sub(letra, "_", palabra_oculta)
         else:
             pass
-    return palabra_oculta
+    return palabra_oculta #retorna la palabra con guiones(en la primera vuelta)
 
 def ahorcado (temas:dict):
     jugando = True
@@ -34,19 +38,20 @@ def ahorcado (temas:dict):
     vidas = 6
 
     while jugando:
-        tema = obtener_tema(temas)
-        palabra = obtener_palabra(temas,tema)
-        lista_letras = []
-        palabra_oculta = reemplazar_letras(palabra,lista_letras)
-        print(f"La categoria es:{tema} \n {palabra_oculta}")
-        print(f"Tu puntaje es: {puntaje}")
+        tema = obtener_tema(temas) #obtiene el tema
+        palabra = obtener_palabra(temas,tema) #obtiene la palabra a adivinar
+        lista_letras = []  #genera una lista vacia
+        palabra_oculta = reemplazar_letras(palabra,lista_letras) # la palabra oculta con todos guiones |recibe la palabra a adivinar, lista letras vacia entonces reemplaza todo
+        print(f"La categoria es:{tema} \n {palabra_oculta}") 
+        print(f"Tu puntaje es: {puntaje}") #puntaje iniciado en 0
 
 
         while palabra != palabra_oculta:
-            previa_palabra_oculta = palabra_oculta
-            letra_ingresada = validar_letras(lista_letras)
-            lista_letras.append(letra_ingresada)
-            palabra_oculta = reemplazar_letras(palabra,lista_letras)
+            previa_palabra_oculta = palabra_oculta #crea variable 'previa_palabra_oculta' y le asigna la palbra con guiones
+            letra_ingresada = validar_letras(lista_letras) # [] la funcion pide la letra, la valida y la devuelve
+            lista_letras.append(letra_ingresada) #agrega la letra a la lista de letras
+            palabra_oculta = reemplazar_letras(palabra,lista_letras) #vuelve a llamar a la funcion para reemplazar los guiones
+                #palabra que se va adivinando| palabra con guiones   
             if palabra_oculta == previa_palabra_oculta:
                 vidas -= 1
                 puntaje -= 5
@@ -66,5 +71,6 @@ def ahorcado (temas:dict):
     print(f"Tu puntaje final es: {puntaje}")
     print("juego finalizado")
             
+
 
 ahorcado(diccionario_de_temas)

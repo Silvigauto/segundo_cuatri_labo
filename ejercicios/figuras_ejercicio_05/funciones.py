@@ -70,19 +70,6 @@ def calcular_perimetro_figura(figura:dict):
         perimetro = calcular_perimetro_triangulo(figura)
     return perimetro
 
-
-'''
-def calcular_perimetro_figura_1(figura:dict):
-    match figura:
-        case figura_cuadrado:
-            perimetro = calcular_perimetro_cuadrado(figura)
-        case figura_rectangulo:
-            perimetro =  calcular_perimetro_rectangulo(figura)
-        case figura_triangulo:
-            perimetro = calcular_perimetro_circulo(figura)
-    return perimetro
-'''        
-
 def calcular_area_figura(figura:dict):
     if figura == figura_cuadrado:
         area = calcular_area_cuadrado(figura)
