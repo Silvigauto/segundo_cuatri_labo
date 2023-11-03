@@ -41,7 +41,7 @@ RELOJ = pygame.time.Clock()
 PANTALLA = pygame.display.set_mode((W,H))
 
 #FONDO
-fondo = pygame.image.load("corre\\fondo.jpg").convert()
+fondo = pygame.image.load("16_clase_27_10_ger\corre\\fondo.jpg").convert()
 fondo = pygame.transform.scale(fondo, (W,H))
 
 #personaje
