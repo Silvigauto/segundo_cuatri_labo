@@ -37,13 +37,13 @@ class Personaje:
                 self.caminar(pantalla)
 
             case "Quieto":
-                #if not self.esta_saltando:
+                if not self.esta_saltando:
 
-                self.animacion_actual = self.animaciones["Quieto"]
-                self.animar(pantalla)
+                    self.animacion_actual = self.animaciones["Quieto"]
+                    self.animar(pantalla)
         
             case "Salta":
-                if not self.esta_saltando:
+                if not self.esta_saltando: #para que no se superpongan las imagenes
                     self.esta_saltando = True
                     self.desplazamiento_y = self.potencia_salto
                     self.animacion_actual = self.animaciones["Salta"]
@@ -91,9 +91,9 @@ class Personaje:
 
         for piso in plataformas:
             if self.rectangulo_principal.colliderect(piso["rectangulo"]):
-                self.desplazamiento_y = 0
-                self.esta_saltando = False
-                self.rectangulo_principal.bottom = piso["rectangulo"].top
+                self.desplazamiento_y = 0 #reinicio el y (y todos los atributos que tenia que ver con el salto)
+                self.esta_saltando = False #cuando colisiona con el piso, deja de saltar
+                self.rectangulo_principal.bottom = piso["rectangulo"].top #hago que coincida asi no se entierran los pies
                 break
             
             else:

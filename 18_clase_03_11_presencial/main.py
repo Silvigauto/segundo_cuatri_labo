@@ -105,8 +105,10 @@ while bandera:
     PANTALLA.blit(plataforma_caño["superficie"], plataforma_caño["rectangulo"])
 
     mario.verificar_colision_enemigo(lista_enemigos, PANTALLA)
-    mario.actualizar(PANTALLA,plataformas)
-    un_enemigo.actualizar(PANTALLA)
+    mario.actualizar(PANTALLA,plataformas) #necesita saber de las plataformas para poder colisiona
+    #un_enemigo.actualizar(PANTALLA)
+    for enemigo in lista_enemigos:
+        enemigo.actualizar(PANTALLA)
 
     for i in range(len(lista_enemigos)):
         if lista_enemigos[i].esta_muerto:
